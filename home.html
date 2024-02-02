@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIPi Generator</title>
+</head>
+<body>
+    <!-- just a random form with a text input and a submit button -->
+    <form id="sipiForm" style="display:flex;flex-direction: column;">
+        <input type="text" required id="input_prompt" name="input_prompt">
+        <button type="submit" >Generate Random Sipi</button>
+    </form>
+    <div id="result"></div>     <!-- an empty div box which will be filled with the randomly generated sipi from the server  -->
+
+
+    <script>
+        document.addEventListener('submit', async function (event) {   // adding an event listener so that when the submit button is pressed the function below is being performed
+
+            event.preventDefault(); //this line is used to prevent the default behavior of the form (in this case it is reloading the page) so that I can handle the form submission manually 
+            const form = document.getElementById('sipiForm');
+            const formData = new FormData(form); //made a new object called formData which basically has all the data entered to the form (like the 'input prompt' in this case)
+
+            const response = await fetch('/generate', { //here I used the fetch function to perform a POST type request to the endpoint /generate which generates the sipi 
+                method: 'POST',
+                body: formData, //making sure the body of the request has the data of the input box , so it can be retrieved into the prompt object on the server.
+            });
+
+            const data = await response.json(); //here I used .json() to parse the response from the fetch function in JSON format 
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2); //finally , changing the content of the results div
+        });
+    </script>
+</body>
+</html>
