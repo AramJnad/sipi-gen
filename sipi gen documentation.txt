@@ -1,0 +1,30 @@
+well, I started off my Flask code with importing the framework and some modules that I needed in my code like:
+Flask: The main class for creating a Flask web application.
+render_template: for rendering the HTML template(home.html).
+request: An object representing the incoming HTTP request.
+jsonify: A function for converting Python objects to JSON format.
+random: to generate random strings for the form.
+string:basically to create a string with all the letters and numbers(This string was used for the generating operation)
+
+then the app creates two endpoints:
+1. '/' : which is the default one ,it only handles get requests with returning an html render template.
+2. '/generate': which responds to POST requests by generating random data in the sipi's form and returning it as a JSON file. it also retrieves the value of the text input and assigns it to the object "prompt"0
+ Finally the code checks if the script is being run directly (not imported as a module) and then runs the app on the port (127.0.0.1:5000)
+
+now moving to the only html render template I wrote:
+it starts really as casual with the basic html layout and then a form which has a text input and a submit button .
+then an empty div is made , it's actually going to be filled with the output data later .
+then I started with the JS script and what it does is basically:
+creates an event listner to the submit button so that when it's pressed a function is called. 
+inside that function you can see this line  (event.preventDefault();) : this line is used to prevent the default behavior of the form (in this case it is reloading the page) so that I can handle the form submission manually .
+then an object named formData is made and has been assigned the content of the form . I did this to make the fetch function call look a bit more organized.
+now coming to the fetch function which performs a POST type request to the endpoint /generate which generates the sipi 
+then I made sure the body of the request has the data of the input box , so it can be retrieved into the prompt object on the server.
+Finally, when I had the server's response I just changed the content of the results div.
+
+notes: The use of async and await is prevalent in asynchronous JavaScript to make code more readable and maintainable, especially when dealing with making requests to the server and taking responses from it.
+
+the server doesn't do anything with the data stored in "prompt" for now, but I just had the idea of doing this because I think it's gonna be a part of the full project anyway.
+NOTE: in order for the app to work the html file should be put inside a folder named "templates"
+
+github repo: https://github.com/AramJnad/sipi-gen.git
